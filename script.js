@@ -18,7 +18,8 @@ boutons.forEach(function(btn) {
       ecran.textContent = resultat;
     } else if (texteBtn === 'C') { // Si le bouton de réinitialisation est cliqué
       ecran.textContent = ''; // Réinitialise le contenu de la div .ecran
-    } else {
+    }
+    else {
       // Met à jour le contenu de la div .ecran avec le texte du bouton cliqué
       ecran.textContent += texteBtn;
     }
