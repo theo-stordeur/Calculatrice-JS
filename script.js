@@ -1,29 +1,30 @@
-// Récupère l'élément ecran de la calculatrice
-const ecran = document.querySelector('.ecran');
+class Calculatrice {
+  constructor() {
+    this.ecran = document.querySelector('.ecran');
+    this.boutons = document.querySelectorAll('.btn button');
 
-// Récupère tous les boutons de la calculatrice
-const boutons = document.querySelectorAll('.btn button');
+    this.boutons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const texteBtn = btn.textContent;
 
-// Boucle à travers tous les boutons et écoute les clics
-boutons.forEach(function(btn) {
-  btn.addEventListener('click', function() {
-    // Obtient le texte du bouton cliqué
-    const texteBtn = this.textContent;
+        if (texteBtn === '=') {
+          const resultat = eval(this.ecran.textContent);
+          this.ecran.textContent = resultat;
+        } else if (texteBtn === 'C') {
+          this.ecran.textContent = '';
+        } else if (texteBtn === '←') {
+          this.supprimer();
+        } else {
+          this.ecran.textContent += texteBtn;
+        }
+      });
+    });
+  }
 
-    if (texteBtn === '=') {
-      // Évalue l'expression mathématique dans la div .ecran
-      const resultat = eval(ecran.textContent);
+  supprimer() {
+    const contenuEcran = this.ecran.textContent;
+    this.ecran.textContent = contenuEcran.slice(0, -1);
+  }
+}
 
-      // Met à jour le contenu de la div .ecran avec le résultat
-      ecran.textContent = resultat;
-    } else if (texteBtn === 'C') { // Si le bouton de réinitialisation est cliqué
-      ecran.textContent = ''; // Réinitialise le contenu de la div .ecran
-    }
-    else {
-      // Met à jour le contenu de la div .ecran avec le texte du bouton cliqué
-      ecran.textContent += texteBtn;
-    }
-  });
-});
-
-
+const maCalculatrice = new Calculatrice();
